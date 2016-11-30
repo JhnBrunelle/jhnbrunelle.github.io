@@ -1,0 +1,179 @@
+
+body{
+  margin-top: 0;
+  background-color: #293440;
+}
+
+.versionNumber{
+  position: absolute;
+  left: 4px;
+  bottom: 2px;
+  font-family: "Lucida Console";
+  font-size: 11px;
+  color: #4c5b63;
+
+}
+
+.container{
+  width: 900px;
+  margin: 0 auto;
+  overflow:hidden;
+  /*Fade In Animations*/
+  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 2s; /* Firefox < 16 */
+  -ms-animation: fadein 2s; /* Internet Explorer */
+  -o-animation: fadein 2s; /* Opera < 12.1 */
+  animation: fadein 2s;
+}
+
+.wrapperTW{
+  margin-top: 50px;
+  float:right;
+  border: 1px;
+  display:inline;
+
+}
+
+
+.banner{
+  padding-top: 20px;
+  float:left;
+  background-color: #262B31;
+  text-align: center;
+  width: 210px;
+  height:350px;
+  top:0px;
+  display:inline-block;
+  border-radius: 0px 0px 5px 5px;
+  font-size: 17px;
+
+  color: #819396;
+  font-family: "Lucida Console";
+  list-style-type: none;
+
+
+}
+
+
+.banner li{
+  font-size: 12px;
+  margin: 1px 20px; ;
+  padding: 4px 0px;
+  text-align: left;
+}
+
+.banner li a:link{
+  text-decoration: none;
+  color: #819396;
+}
+
+.banner li a:visited {
+  color: #819396;
+}
+
+.banner li a:hover{
+  color: #008DD4;
+}
+
+.banner li a:active{
+  color: #008DD4;
+}
+
+img{
+  width:160px;
+  height:160px;
+  margin-bottom:20px;
+  border-radius: 50%;
+}
+
+.topBar{
+  width:582px;
+  height:25px;
+  background-color:black;
+  border-radius: 5px 5px 0px 0px;
+  display: flex;
+  overflow:hidden;
+  padding-top:2px;
+  padding-left:8px;
+  align-items: center;
+}
+
+.circle {
+  border-radius: 55%;
+  width: 12px;
+  height: 12px;
+  margin:0px 3px;
+}
+
+.terminalWindow {
+  padding:17px 20px;
+  background-color: #262B31;
+  color: #819396;
+  list-style-type: none;
+  width:550px;
+  height:400px;
+  font-family: "Lucida Console";
+  font-size: small;
+  border-radius: 0px 0px 5px 5px;
+  letter-spacing: 1px;
+}
+.terminalWindow li {
+  padding: 4px 0px;
+}
+
+.terminalWindow input {
+  background-color: #262B31;
+  letter-spacing: 1px;
+  border: 0px;
+  outline: none;
+  color: #008DD4;
+  margin-top: 1px;
+  font-family: "Lucida Console";
+  font-size: small;
+  width:100%;
+}
+
+/* Animation Support */
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* If Screen is less than a certain width, rearrange the page*/
+@media screen and (max-width: 900px) {
+  .banner {
+    display: none !important;
+  }
+  .wrapperTW{
+    display: block;
+    margin: 0 auto;
+  }
+
+
+
+}
