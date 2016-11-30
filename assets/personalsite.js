@@ -148,7 +148,18 @@ define("personalsite/controllers/index", ["exports", "ember"], function (exports
           historyList.pushObject({ message: "University Of Western Ontario" });
           historyList.pushObject({ message: "Bachelor of Engineering Science (BESc) in Computer Engineering" });
           historyList.pushObject({ message: "With specialty in Electronics" });
-          historyList.pushObject({ message: "GPA: 3.9, Class of 2019" });
+          historyList.pushObject({ message: "GPA: 3.7, Class of 2019" });
+          break;
+
+        case "> about":
+          this.set("numberOfLines", this.get("numberOfLines") + 6);
+          this.checkLines(historyList);
+          historyList.pushObject({ message: cmnd });
+          historyList.pushObject({ message: "  I'm an Electrical Computer Engineering student from" });
+          historyList.pushObject({ message: "  California. I enjoy coding in Javascript, Python, Java  " });
+          historyList.pushObject({ message: "  and C++." });
+          historyList.pushObject({ message: "  After University, I hope to either go into FPGA, embedded or" });
+          historyList.pushObject({ message: "  Software development. " });
           break;
 
         default:
@@ -498,7 +509,7 @@ define("personalsite/templates/application", ["exports"], function (exports) {
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
         dom.setAttribute(el2, "class", "versionNumber");
-        var el3 = dom.createTextNode("\n        jsh v0.03 - Made with Ember.js\n    ");
+        var el3 = dom.createTextNode("\n        jsh v0.04 - Made with Ember.js\n    ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n");
