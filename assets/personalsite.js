@@ -40,11 +40,11 @@ define("personalsite/controllers/index", ["exports", "ember"], function (exports
 
     numberOfLines: 4, // The amount of lines currently displayed on screen
     textRows: 18, // Number of Rows the Terminal Window can hold
-    commandHistory: [{ message: "Hello, My name is Johnathan Brunelle." }, { message: "I am an Electrical Computer Engineering Student in my second" }, { message: "year at the University of Western Ontario." }, { message: "Enter 'help' to view the commands." }],
+    commandHistory: [{ message: "Hello, My name is Johnathan Brunelle." }, { message: "I am an Electrical Engineering + CS Student in my second" }, { message: "year at the University of Western Ontario." }, { message: "Enter 'help' to view the commands." }],
 
     init: function init() {
 
-      this.set('textBuffer', '> ');
+      this.set('textBuffer', '');
     },
 
     /**
@@ -83,8 +83,8 @@ define("personalsite/controllers/index", ["exports", "ember"], function (exports
 
       // Used for debugging
       switch (cmnd) {
-        case "> help":
-        case "> ls":
+        case "help":
+        case "ls":
           this.set("numberOfLines", this.get("numberOfLines") + 8);
           this.checkLines(historyList);
           historyList.pushObject({ message: cmnd });
@@ -97,12 +97,12 @@ define("personalsite/controllers/index", ["exports", "ember"], function (exports
           historyList.pushObject({ message: "  contact - Display Contact Info" });
           break;
 
-        case "> clear":
+        case "clear":
           this.set('commandHistory', []);
           this.set('numberOfLines', 0);
           break;
 
-        case "> stabilitycheck":
+        case "stabilitycheck":
           // Used for Debugging
           console.log("commandHistory: " + this.get('commandHistory').length);
           console.log("numberOfLines:  " + this.get('numberOfLines'));
@@ -113,7 +113,7 @@ define("personalsite/controllers/index", ["exports", "ember"], function (exports
           historyList.pushObject({ message: "Stability Checked! View Console!" });
           break;
 
-        case "> contact":
+        case "contact":
           // Used for Debugging
           console.log("commandHistory: " + this.get('commandHistory').length);
           console.log("numberOfLines:  " + this.get('numberOfLines'));
@@ -124,7 +124,7 @@ define("personalsite/controllers/index", ["exports", "ember"], function (exports
           historyList.pushObject({ message: "Email - jhnbrunelle@gmail.com" });
           break;
 
-        case "> github":
+        case "github":
           this.set("numberOfLines", this.get("numberOfLines") + 2);
           this.checkLines(historyList);
           historyList.pushObject({ message: cmnd });
@@ -132,7 +132,7 @@ define("personalsite/controllers/index", ["exports", "ember"], function (exports
           historyList.pushObject({ message: "Github opened!" });
           break;
 
-        case "> linkedin":
+        case "linkedin":
           this.set("numberOfLines", this.get("numberOfLines") + 2);
           this.checkLines(historyList);
           historyList.pushObject({ message: cmnd });
@@ -140,18 +140,17 @@ define("personalsite/controllers/index", ["exports", "ember"], function (exports
           historyList.pushObject({ message: "Linkedin opened!" });
           break;
 
-        case "> degree":
+        case "degree":
           // States my Degree
-          this.set("numberOfLines", this.get("numberOfLines") + 5);
+          this.set("numberOfLines", this.get("numberOfLines") + 4);
           this.checkLines(historyList);
           historyList.pushObject({ message: cmnd });
           historyList.pushObject({ message: "University Of Western Ontario" });
-          historyList.pushObject({ message: "Bachelor of Engineering Science (BESc) in Computer Engineering" });
-          historyList.pushObject({ message: "With specialty in Electronics" });
+          historyList.pushObject({ message: "Bachelor of Engineering Science (BESc) in Electrical Engineering" });
           historyList.pushObject({ message: "GPA: 3.7, Class of 2019" });
           break;
 
-        case "> about":
+        case "about":
           this.set("numberOfLines", this.get("numberOfLines") + 6);
           this.checkLines(historyList);
           historyList.pushObject({ message: cmnd });
@@ -165,11 +164,22 @@ define("personalsite/controllers/index", ["exports", "ember"], function (exports
         default:
           this.set("numberOfLines", this.get("numberOfLines") + 2);
           this.checkLines(historyList);
-          historyList.pushObject({ message: cmnd });
+          if (cmnd === '') {
+            historyList.pushObject({ message: " " });
+          } else {
+            historyList.pushObject({ message: cmnd });
+          }
           historyList.pushObject({ message: "jsh: " + cmnd + ": command not found" });
           break;
-
       }
+    },
+
+    // Used to validate correct console input
+    // Returns true if valid, or false if invalid
+    // Invalid - Nothing but spaces ie. Null input
+    validateInput: function validateInput(input) {
+      var parsedInput = input.replace(/\s+/, "");
+      return parsedInput !== "";
     },
 
     actions: {
@@ -179,8 +189,10 @@ define("personalsite/controllers/index", ["exports", "ember"], function (exports
        * @param text User Input
        */
       inputLineHandler: function inputLineHandler(text) {
-        this.registerCommand(text);
-        this.set('textBuffer', '> ');
+        if (this.validateInput(text)) {
+          this.registerCommand(text);
+          this.set('textBuffer', '');
+        }
       }
     }
   });
@@ -417,7 +429,7 @@ define("personalsite/templates/application", ["exports"], function (exports) {
         var el3 = dom.createTextNode("\n        ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("img");
-        dom.setAttribute(el3, "src", "assets/selfImg.png");
+        dom.setAttribute(el3, "src", "assets/selfimgmorty.png");
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n        Johnathan Brunelle");
         dom.appendChild(el2, el3);
@@ -509,7 +521,7 @@ define("personalsite/templates/application", ["exports"], function (exports) {
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
         dom.setAttribute(el2, "class", "versionNumber");
-        var el3 = dom.createTextNode("\n        jsh v0.04 - Made with Ember.js\n    ");
+        var el3 = dom.createTextNode("\n        jsh v0.08 - Made with Ember.js\n    ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n");
@@ -583,7 +595,7 @@ define("personalsite/templates/index", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 14,
+            "line": 17,
             "column": 0
           }
         },
@@ -630,7 +642,22 @@ define("personalsite/templates/index", ["exports"], function (exports) {
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("    ");
         dom.appendChild(el1, el2);
-        var el2 = dom.createComment("");
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "input");
+        var el3 = dom.createTextNode("\n      ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("label");
+        dom.setAttribute(el3, "for", "line");
+        dom.setAttribute(el3, "style", "color:#008DD4;");
+        var el4 = dom.createTextNode("user@jsh: ~$");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n      ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
@@ -643,10 +670,10 @@ define("personalsite/templates/index", ["exports"], function (exports) {
         var element0 = dom.childAt(fragment, [3]);
         var morphs = new Array(2);
         morphs[0] = dom.createMorphAt(element0, 1, 1);
-        morphs[1] = dom.createMorphAt(element0, 3, 3);
+        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 3, 3);
         return morphs;
       },
-      statements: [["block", "each", [["get", "commandHistory", ["loc", [null, [9, 12], [9, 26]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [9, 4], [11, 13]]]], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "textBuffer", ["loc", [null, [12, 30], [12, 40]]], 0, 0, 0, 0]], [], [], 0, 0], "insert-newline", "inputLineHandler", "maxlength", "60", "autofocus", "autofocus"], ["loc", [null, [12, 4], [12, 113]]], 0, 0]],
+      statements: [["block", "each", [["get", "commandHistory", ["loc", [null, [9, 12], [9, 26]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [9, 4], [11, 13]]]], ["inline", "input", [], ["type", "text", "id", "line", "value", ["subexpr", "@mut", [["get", "textBuffer", ["loc", [null, [14, 41], [14, 51]]], 0, 0, 0, 0]], [], [], 0, 0], "insert-newline", "inputLineHandler", "maxlength", "40", "spellcheck", "false", "autofocus", "autofocus"], ["loc", [null, [14, 6], [14, 143]]], 0, 0]],
       locals: [],
       templates: [child0]
     };
@@ -684,7 +711,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("personalsite/app")["default"].create({"name":"personalsite","version":"0.0.0+bb2485a9"});
+  require("personalsite/app")["default"].create({"name":"personalsite","version":"0.0.0+5293d5d1"});
 }
 
 /* jshint ignore:end */
